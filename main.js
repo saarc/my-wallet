@@ -52,6 +52,28 @@ app.post('/user', async(req, res) => {
 
 });
 
+app.post('/admin', async(req, res) => {
+
+    console.log("/admin start -- ");
+
+    try {
+        const wallet = await buildWallet(Wallets, walletPath);
+		await enrollAdmin(caClient, wallet, mspOrg1); // wallet/admin.id
+    } catch (error) {
+        var result = `{"result":"fail", "id":"admin"}`;
+        var obj = JSON.parse(result);
+        console.log("/admin end -- failed");
+        res.status(200).send(obj);
+        return;
+    }
+
+    var result = `{"result":"success", "id":"admin"}`;
+    var obj = JSON.parse(result);
+    console.log("/admin end -- success");
+    res.status(200).send(obj);
+
+});
+
 app.post('/marble', async(req, res) =>{
     var name = req.body.name;
     var color = req.body.color;
@@ -60,7 +82,7 @@ app.post('/marble', async(req, res) =>{
 
     console.log("/marble post start -- ", name, color, size, owner);
     const gateway = new Gateway();
-    
+
     try {
         const wallet = await buildWallet(Wallets, walletPath);
 		// GW -> connect -> CH -> CC -> submitTransaction
