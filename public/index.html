@@ -11,16 +11,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
 
 </head>
 
 <body>
-    <div class="container">
-        <br>
-        <h2>마블 블록체인 프로토타입</h2>
-        <br>
+    <br>
+    <div class="container ">
+        <div class="row align-items-center justify-content-center">
+            <br>
+            <h2>마블 블록체인 프로토타입</h2>
+            <br>
 
-        <!-- <form action="/marble" method="get"> -->
+            <!-- <form action="/marble" method="get"> -->
             <a href="/public/marble-create2.html" class="btn btn-primary">마블생성</a>
             <br><br>
             <a href="/public/marble-read.html" class="btn btn-success">마블조회</a>
@@ -29,30 +33,31 @@
             <br><br>
             <a href="/public/marble-history.html" class="btn btn-secondary">마블이력조회</a>
             <br><br>
-        <br>
-        <p class="lead">If you click each button, new page will be opened.</p>
+            <br>
+            <p class="lead">If you click each button, new page will be opened.</p>
+        </div>
     </div>
 </body>
 
 <script>
-    $("#read-btn").click( function(){
+    $("#read-btn").click(function () {
         var name = $("#name").val();
         console.log("read-btn clicked", name);
 
-        $.get('/marble', {name}, function(data){
-            
+        $.get('/marble', { name }, function (data) {
+
             // result message 표시
             $("#result-str").append("<i class='bi bi-chat-square-dots'></i>");
-            $("#result-str").append("<p class='lead'>"+JSON.stringify(data)+"</p>");
-            
+            $("#result-str").append("<p class='lead'>" + JSON.stringify(data) + "</p>");
+
             // result table 표시
             $("#result-table").empty()
             $("#result-str").append("<i class='bi bi-table'></i>");
             if (data.result == "success") {
-                $("#result-table").append("<tr><td>NAME:</td><td>"+data.message.name+"</td></tr>");
-                $("#result-table").append("<tr><td>COLOR:</td><td>"+data.message.color+"</td></tr>");
-                $("#result-table").append("<tr><td>SIZE:</td><td>"+data.message.size+"</td></tr>");
-                $("#result-table").append("<tr><td>OWNER:</td><td>"+data.message.owner+"</td></tr>");
+                $("#result-table").append("<tr><td>NAME:</td><td>" + data.message.name + "</td></tr>");
+                $("#result-table").append("<tr><td>COLOR:</td><td>" + data.message.color + "</td></tr>");
+                $("#result-table").append("<tr><td>SIZE:</td><td>" + data.message.size + "</td></tr>");
+                $("#result-table").append("<tr><td>OWNER:</td><td>" + data.message.owner + "</td></tr>");
             } else {
                 $("#result-table").append("<tr><td>NAME:</td><td> </td></tr>");
                 $("#result-table").append("<tr><td>COLOR:</td><td> </td></tr>");
@@ -62,5 +67,8 @@
         });
     });
 </script>
+<style>
+
+</style>
 
 </html>
