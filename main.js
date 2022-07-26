@@ -74,6 +74,30 @@ app.post('/admin', async(req, res) => {
 
 });
 
+app.get('/user/list', async(req, res) => {
+
+    console.log("/user/list start -- ");
+
+    let wlist;
+    try {
+        const wallet = await buildWallet(Wallets, walletPath);
+        wlist = await wallet.list();
+
+    } catch (error) {
+        var result = `{"result":"fail", "id":{"/user/list"}}`;
+        var obj = JSON.parse(result);
+        console.log("/user/list end -- failed");
+        res.status(200).send(obj);
+        return;
+    }
+
+    var result = `{"result":"success", "id":"${wlist}"}`;
+    var obj = JSON.parse(result);
+    console.log("/user/list end -- success");
+    res.status(200).send(obj);
+
+});
+
 app.post('/marble', async(req, res) =>{
     var name = req.body.name;
     var color = req.body.color;
